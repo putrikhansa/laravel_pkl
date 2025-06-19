@@ -36,3 +36,21 @@ Route::get('kategori/{namaKategori?}', function ($nama = null) {
 Route::get('promo/{barang?}/{kode?}', function ($barang = null, $kode = null) {
     return view('promo', compact('barang', 'kode'));
 });
+
+// Route siswa
+use App\Http\Controllers\Mycontroller;
+Route::get('siswa',[Mycontroller::class, 'index']);
+
+// create
+Route::get('siswa/create', [Mycontroller::class, 'create']);
+Route::post('/siswa', [Mycontroller::class, 'store']);
+
+// show
+Route::get('siswa/{id}', [Mycontroller::class, 'show']);
+
+// edit data
+Route::get('siswa/{id}/edit', [Mycontroller::class, 'edit']);
+Route::put('siswa/{id}', [Mycontroller::class, 'update']);
+
+// delete
+Route::delete('siswa/{id}', [MyController::class, 'destroy']);
