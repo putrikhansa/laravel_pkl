@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BackendController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -39,7 +39,7 @@ Route::get('promo/{barang?}/{kode?}', function ($barang = null, $kode = null) {
 
 // Route siswa
 use App\Http\Controllers\Mycontroller;
-Route::get('siswa',[Mycontroller::class, 'index']);
+Route::get('siswa', [Mycontroller::class, 'index']);
 
 // create
 Route::get('siswa/create', [Mycontroller::class, 'create']);
@@ -58,3 +58,15 @@ Route::delete('siswa/{id}', [MyController::class, 'destroy']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Import Middleware
+use App\http\Middleware\Admin;
+// Route Admin / Backend
+Route::group(
+    [
+        'prefix' => 'admin',
+        'middleware' => ['auth', Admin::class],
+    ],
+    function () {
+        Route::get('/', [BackendController::class, 'index']);
+    },
+);
