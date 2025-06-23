@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ProductController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -68,5 +71,8 @@ Route::group(
     ],
     function () {
         Route::get('/', [BackendController::class, 'index']);
-    },
-);
+
+        // crud
+        Route::resource('/category', CategoryController::class);
+        Route::resource('/product', ProductController::class);
+    });
