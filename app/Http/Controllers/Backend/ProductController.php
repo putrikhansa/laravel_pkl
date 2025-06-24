@@ -42,12 +42,12 @@ class ProductController extends Controller
     {
         // validasi
         $validated = $request->validate([
-            'name'        => 'required|unique:categories',
+            'name'        => 'required',
             'category_id' => 'required',
             'price'       => 'required|numeric',
             'description' => 'required',
             'stock'       => 'required|numeric',
-            'image'       => 'required|image|mimes:jpg,png',
+            'image'       => 'required|image|mimes:jpg,png|max:1024',
         ]);
 
         $product              = new Product();

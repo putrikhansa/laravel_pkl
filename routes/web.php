@@ -4,59 +4,63 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\FrontendController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// route member / guest (tamu)
+Route::get('/',[FrontendController::class, 'index']);
+Route::get('/about', [FrontendController::class, 'about']);
+Route::get('/product', [FrontendController::class, 'product']);
+Route::get('/cart', [FrontendController::class, 'cart']);
 
-// Route basic
-Route::get('about', function () {
-    return 'Ini Halaman About';
-});
 
-Route::get('profile', function () {
-    return view('profile');
-});
+// // Route basic
+// Route::get('about', function () {
+//     return 'Ini Halaman About';
+// });
 
-// Route parameter (di tandai {})
-Route::get('produk/{namaProduk}', function ($a) {
-    return 'Saya Membeli <b>' . $a . '</br>';
-});
+// Route::get('profile', function () {
+//     return view('profile');
+// });
 
-Route::get('beli/{barang}/{jumlah}', function ($a, $b) {
-    return view('beli', compact('a', 'b'));
-});
+// // Route parameter (di tandai {})
+// Route::get('produk/{namaProduk}', function ($a) {
+//     return 'Saya Membeli <b>' . $a . '</br>';
+// });
 
-// Route optional parameter
-Route::get('kategori/{namaKategori?}', function ($nama = null) {
-    if ($nama) {
-        return 'Anda Memilih Kategori: ' . $nama;
-    } else {
-        return 'Anda Belum Memilih Kategori!';
-    }
-});
+// Route::get('beli/{barang}/{jumlah}', function ($a, $b) {
+//     return view('beli', compact('a', 'b'));
+// });
 
-Route::get('promo/{barang?}/{kode?}', function ($barang = null, $kode = null) {
-    return view('promo', compact('barang', 'kode'));
-});
+// // Route optional parameter
+// Route::get('kategori/{namaKategori?}', function ($nama = null) {
+//     if ($nama) {
+//         return 'Anda Memilih Kategori: ' . $nama;
+//     } else {
+//         return 'Anda Belum Memilih Kategori!';
+//     }
+// });
 
-// Route siswa
-use App\Http\Controllers\Mycontroller;
-Route::get('siswa', [Mycontroller::class, 'index']);
+// Route::get('promo/{barang?}/{kode?}', function ($barang = null, $kode = null) {
+//     return view('promo', compact('barang', 'kode'));
+// });
 
-// create
-Route::get('siswa/create', [Mycontroller::class, 'create']);
-Route::post('/siswa', [Mycontroller::class, 'store']);
+// // Route siswa
+// use App\Http\Controllers\Mycontroller;
+// Route::get('siswa', [Mycontroller::class, 'index']);
 
-// show
-Route::get('siswa/{id}', [Mycontroller::class, 'show']);
+// // create
+// Route::get('siswa/create', [Mycontroller::class, 'create']);
+// Route::post('/siswa', [Mycontroller::class, 'store']);
 
-// edit data
-Route::get('siswa/{id}/edit', [Mycontroller::class, 'edit']);
-Route::put('siswa/{id}', [Mycontroller::class, 'update']);
+// // show
+// Route::get('siswa/{id}', [Mycontroller::class, 'show']);
 
-// delete
-Route::delete('siswa/{id}', [MyController::class, 'destroy']);
+// // edit data
+// Route::get('siswa/{id}/edit', [Mycontroller::class, 'edit']);
+// Route::put('siswa/{id}', [Mycontroller::class, 'update']);
+
+// // delete
+// Route::delete('siswa/{id}', [MyController::class, 'destroy']);
 
 Auth::routes();
 
