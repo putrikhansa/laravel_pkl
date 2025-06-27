@@ -1,16 +1,13 @@
 <?php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
 
-    // field apa saja yang wajib diisi
-    public $fillable = ['category_id', 'name', 'slug', 'description',
-        'image', 'price', 'stock'];
+// field apa saja yang boleh di isi
+    public $fillable = ['category_id', 'name', 'slug', 'description', 'image', 'price', 'stock'];
 
     public function category()
     {
@@ -21,10 +18,21 @@ class Product extends Model
     {
         return $this->hasMany(Cart::class);
     }
-    // relasi many to many dgn Order
+
     public function orders()
     {
-        return $this->belongsToMany(Product::class)->wuthPivot('qty', 'price')
-            ->withTimestamps();
+        return $this->belongsToMany(Order::class)->withPivot('qty', 'price')->withTimestamps();
+
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    // mengganti kunci dari 'id' ke 'slug'
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

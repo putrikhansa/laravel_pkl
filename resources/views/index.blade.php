@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-12 herobanner__img__side">
                                 <div class="herobanner__img">
-                                    <img src="{{ asset('assets/frontend/img/herobanner/main_herobanner__2.png') }}"
+                                    <img src="{{ asset('assets/frontend/img/STONE ISLAND Logo-Appliquéd Twill Overshirt for Men.jpeg') }}"
                                         alt="">
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-12 herobanner__img__side">
                                 <div class="herobanner__img">
-                                    <img src="{{ asset('assets/frontend/img/herobanner/main_herobanner__3.png') }}"
+                                    <img src="{{ asset('assets/frontend/img/키디키디 - 취향 육아 플랫폼 (@kidikidi_kr) • Ảnh và video trên Instagram.jpeg') }}"
                                         alt="">
                                 </div>
                             </div>

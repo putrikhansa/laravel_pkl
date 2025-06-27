@@ -26,14 +26,14 @@
                  <!-- Dashboard -->
                  <!-- ---------------------------------- -->
                  <li class="sidebar-item">
-                     <a class="sidebar-link" href="{{ route('category.index') }}"> <span>
+                     <a class="sidebar-link" href="{{ route('backend.category.index') }}"> <span>
                              <i class="ti ti-layout-grid"></i>
                          </span>
                          <span class="hide-menu">Category</span>
                      </a>
                  </li>
                  <li class="sidebar-item">
-                     <a class="sidebar-link" href="{{ route('product.index') }}"> <span>
+                     <a class="sidebar-link" href="{{ route('backend.product.index') }}"> <span>
                              <i class="ti ti-tag"></i>
                          </span>
                          <span class="hide-menu">Product</span>

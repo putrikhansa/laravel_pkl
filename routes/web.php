@@ -1,82 +1,50 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\OrderController as OrdersController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrderController;
+use App\Http\Middleware\Admin;
+use Illuminate\Support\Facades\Route;
 
-// route member / guest (tamu)
-Route::get('/',[FrontendController::class, 'index']);
+// Route guest (tamu) / member
+Route::get('/', [FrontendController::class, 'index']);
+
+Route::get('/product', [FrontendController::class, 'product'])->name('product.index');
+Route::get('/product/{product}', [FrontendController::class, 'singleProduct'])->name('product.show');
+Route::get('/product/category/{slug}', [FrontendController::class, 'filterByCategory'])->name('product.filter');
+Route::get('/search', [FrontendController::class, 'search'])->name('product.search');
+
 Route::get('/about', [FrontendController::class, 'about']);
-Route::get('/product', [FrontendController::class, 'product']);
-Route::get('/cart', [FrontendController::class, 'cart']);
 
+// cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::put('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update');
+Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
-// // Route basic
-// Route::get('about', function () {
-//     return 'Ini Halaman About';
-// });
+// orders
+Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
-// Route::get('profile', function () {
-//     return view('profile');
-// });
-
-// // Route parameter (di tandai {})
-// Route::get('produk/{namaProduk}', function ($a) {
-//     return 'Saya Membeli <b>' . $a . '</br>';
-// });
-
-// Route::get('beli/{barang}/{jumlah}', function ($a, $b) {
-//     return view('beli', compact('a', 'b'));
-// });
-
-// // Route optional parameter
-// Route::get('kategori/{namaKategori?}', function ($nama = null) {
-//     if ($nama) {
-//         return 'Anda Memilih Kategori: ' . $nama;
-//     } else {
-//         return 'Anda Belum Memilih Kategori!';
-//     }
-// });
-
-// Route::get('promo/{barang?}/{kode?}', function ($barang = null, $kode = null) {
-//     return view('promo', compact('barang', 'kode'));
-// });
-
-// // Route siswa
-// use App\Http\Controllers\Mycontroller;
-// Route::get('siswa', [Mycontroller::class, 'index']);
-
-// // create
-// Route::get('siswa/create', [Mycontroller::class, 'create']);
-// Route::post('/siswa', [Mycontroller::class, 'store']);
-
-// // show
-// Route::get('siswa/{id}', [Mycontroller::class, 'show']);
-
-// // edit data
-// Route::get('siswa/{id}/edit', [Mycontroller::class, 'edit']);
-// Route::put('siswa/{id}', [Mycontroller::class, 'update']);
-
-// // delete
-// Route::delete('siswa/{id}', [MyController::class, 'destroy']);
+// review
+Route::post('/product/{product}/review', [App\Http\Controllers\ReviewController::class, 'store'])
+    ->middleware('auth')->name('review.store');
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Import Middleware
-use App\http\Middleware\Admin;
-// Route Admin / Backend
-Route::group(
-    [
-        'prefix' => 'admin',
-        'middleware' => ['auth', Admin::class],
-    ],
-    function () {
-        Route::get('/', [BackendController::class, 'index']);
 
-        // crud
-        Route::resource('/category', CategoryController::class);
-        Route::resource('/product', ProductController::class);
-    });
+// Route Admin / Backend
+Route::group(['prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth', Admin::class]], function () {
+    Route::get('/', [BackendController::class, 'index']);
+
+    // crud resource
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/product', ProductController::class);
+    Route::resource('/orders', OrdersController::class);
+    Route::put('/orders/{id}/status', [OrdersController::class, 'updateStatus'])->name('orders.updateStatus');
+});
