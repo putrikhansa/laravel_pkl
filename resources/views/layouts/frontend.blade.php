@@ -69,6 +69,8 @@
     <script src="{{ asset('assets/frontend/js/fontawesome.min.js') }} "></script>
     <script src="{{ asset('assets/frontend/js/plugins.js') }} "></script>
     <script src="{{ asset('assets/frontend/js/main.js') }} "></script>
+    @include('sweetalert::alert')
+    @yield('js')
     @stack('scripts')
 </body>
 

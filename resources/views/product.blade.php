@@ -3,16 +3,16 @@
     <!-- shop_section_start -->
     <div class="shop_top bg_80">
         <div class="container">
-            <div class="row grid_responsive">
+            <div class="row grid__responsive">
                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
                     <div class="sidebar sidebar-collapse-hide">
-                        <div class="sidebar_widget widget-collapse-show">
-                            <div class="sidebar_title">
-                                <h4>Kategori</h4>
-                                <i class="fa fa-angle-down"></i>
+                        <div class="sidebar__widget widget_collapse-show">
+                            <div class="sidebar__title">
+                                <h4>Categories</h4>
+                                <i class="fas fa-angle-down"></i>
                             </div>
 
-                            <div class="sidebar_menu">
+                            <div class="sidebar__menu">
                                 <ul>
                                     <li>
                                         <a href="{{ route('product.index') }}"
@@ -31,6 +31,7 @@
                                 </ul>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -53,7 +54,7 @@
                                                         <a href="{{ url('/product/' . $data->slug) }}">
                                                             <img class="primary_image"
                                                                 src="{{ Storage::url($data->image) }}"
-                                                                alt="{{ $data->name }} "  width="200">
+                                                                alt="{{ $data->name }} " width="200">
                                                         </a>
                                                     </div>
                                                 </div>

@@ -38,7 +38,7 @@
                             <div class="border rounded p-3 bg-light">
                                 <strong>Status:</strong><br>
                                 <span
-                                    class="badge
+                                    class="badge 
                                 {{ $order->status == 'pending'
                                     ? 'bg-warning text-dark'
                                     : ($order->status == 'success'
@@ -117,3 +117,7 @@
                 </a>
 
             </div>
+        </div>
+
+    </div>
+@endsection

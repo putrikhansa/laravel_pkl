@@ -74,13 +74,13 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $cartItem = Cart::with('product')->where('user_id', auth()->id())->get();
-        if ($cartItem->isEmpty()) {
+        $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
+        if ($cartItems->isEmpty()) {
             toast('Keranjang kosong. Tidak bisa Checkout.', 'warning');
             return redirect()->route('cart.index');
         }
         // hitung total harga
-        $total = $cartItem->sum(function ($item) {
+        $total = $cartItems->sum(function ($item) {
             return $item->qty * $item->product->price;
         });
         // simpan order

@@ -425,7 +425,6 @@
 
     <!-- minicart__section__start -->
     @include('layouts.components-frontend.mini_cart')
-
     <!-- minicart__section__end -->
 
 </header>

@@ -59,7 +59,7 @@
                         <a href="{{ route('cart.index') }}" class="default__button">View Cart</a>
                         <a href="{{ route('cart.checkout') }}" class="default__button">Checkout</a>
                     </div>
-                    <div class="cart__note__text">
+                    <div class="cart__note__text"> 
                         <p>Free Shipping on All Orders Over Rp 1.500.000!</p>
                     </div>
                 </div>

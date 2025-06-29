@@ -29,8 +29,7 @@
                             <div class="featurearea_single_big_img">
                                 <img src="{{ asset('storage/' . $product->image) }}"
                                     onerror="this.src='{{ asset('assets/frontend/img/grid/grid_1.png') }}';"
-                                    alt="{{ $product->name }}"
-                                     width="300" height="auto">
+                                    alt="{{ $product->name }}" width="300" height="auto">
                             </div>
                         </div>
                         {{-- <div class="featurearea_thumb_img featurearea_thumb_img_slider_active slider_default_arrow">
@@ -81,84 +80,77 @@
                                         class="input-qty">
                                     <button type="button" class="qty-btn-plus btn-qty">+</button>
                                 </div>
+
+                                <button type="submit" class="default__button">
+                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                </button>
                             </div>
-                            <button type="submit" class="default_button">
-                                <i class="fa fa-shopping-cart"></i> Add to Cart
-                            </button>
-                            <a href="#" class="default_button black_button">Buy it Now</a>
                         </form>
 
-                        <div class="single_product__bottom_menu">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-heart"></i> Add to Wishlist</a></li>
-                                <li><a href="#"><i class="fa fa-exchange-alt"></i> Compare</a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i> Ask a Question</a></li>
-                                <li><a href="#"><i class="fa fa-chart-bar"></i> Size Chart</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Review & Comment Section -->
-            <div class="single_product_content sp_bottom_80">
-                <div class="container">
-                    <div class="row g-5">
-                        <div class="col-xl-6">
-                            <div class="border p-4 rounded shadow-sm">
-                                <h5 class="mb-3">Tulis Ulasan Anda</h5>
-                                @auth
-                                    <form action="{{ route('review.store', $product->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <div class="mb-3">
-                                            <label for="point" class="form-label">Rating</label>
-                                            <select name="point" id="point" class="form-select" required>
-                                                <option value="">Pilih rating</option>
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <option value="{{ $i }}">{{ $i }} Bintang</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="comment" class="form-label">Komentar</label>
-                                            <textarea name="comment" id="comment" class="form-control" rows="3" required></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100">Kirim Ulasan</button>
-                                    </form>
-                                @else
-                                    <p>Silakan <a href="{{ route('login') }}">login</a> untuk memberikan ulasan.</p>
-                                @endauth
-                            </div>
-                        </div>
-
-                        <!-- Display Reviews -->
-                        <div class="col-xl-6">
-                            <div class="border p-4 rounded shadow-sm">
-                                <h5 class="mb-3">Ulasan pelanggan</h5>
-                                @forelse ($product->reviews as $review)
-                                    <div class="mb-3 border-bottom">
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <strong>{{ $review->user->name }}</strong>
-                                            <small class="text-muted">{{ $review->created_at->format('d M, H:i') }}</small>
-                                        </div>
-                                        <div class="mb-1">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <i
-                                                    class="fa{{ $i <= $review->point ? 's' : 'r' }} fa-star text-warning"></i>
-                                            @endfor
-                                        </div>
-                                        <p class="mb-0">{{ $review->comment }}</p>
-                                    </div>
-                                @empty
-                                    <p class="text-muted">Belum ada ulasan untuk produk ini.</p>
-                                @endforelse
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Review & Comment Section -->
+    <div class="single_product_content sp_bottom_80">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-xl-6">
+                    <div class="border p-4 rounded shadow-sm">
+                        <h5 class="mb-3">Tulis Ulasan Anda</h5>
+                        @auth
+                            <form action="{{ route('review.store', $product->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <div class="mb-3">
+                                    <label for="point" class="form-label">Rating</label>
+                                    <select name="point" id="point" class="form-select" required>
+                                        <option value="">Pilih rating</option>
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <option value="{{ $i }}">{{ $i }} Bintang</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Komentar</label>
+                                    <textarea name="comment" id="comment" class="form-control" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Kirim Ulasan</button>
+                            </form>
+                        @else
+                            <p>Silakan <a href="{{ route('login') }}">login</a> untuk memberikan ulasan.</p>
+                        @endauth
+                    </div>
+                </div>
+
+                <!-- Display Reviews -->
+                <div class="col-xl-6">
+                    <div class="border p-4 rounded shadow-sm">
+                        <h5 class="mb-3">Ulasan pelanggan</h5>
+                        @forelse ($product->reviews as $review)
+                            <div class="mb-3 border-bottom">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <strong>{{ $review->user->name }}</strong>
+                                    <small class="text-muted">{{ $review->created_at->format('d M, H:i') }}</small>
+                                </div>
+                                <div class="mb-1">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <i class="fa{{ $i <= $review->point ? 's' : 'r' }} fa-star text-warning"></i>
+                                    @endfor
+                                </div>
+                                <p class="mb-0">{{ $review->comment }}</p>
+                            </div>
+                        @empty
+                            <p class="text-muted">Belum ada ulasan untuk produk ini.</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
 
 @endsection

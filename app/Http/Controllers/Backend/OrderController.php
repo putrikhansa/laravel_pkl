@@ -25,15 +25,33 @@ class OrderController extends Controller
     }
 
     public function destroy($id)
-    {
-        $order = Order::findOrFail($id);
-        $order->delete();
+{
+    $order = Order::findOrFail($id);
 
-        toast('Pesanan berhasil dihapus', 'success');
-        return redirect()->route('backend.orders.index');
-    }
+    
+    $order->products()->detach(); 
+
+    $order->delete(); 
+    toast('Pesanan berhasil dihapus', 'success');
+    return redirect()->route('backend.orders.index');
+}
+
 
     public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,success,cancel',
+        ]);
+
+        $order         = Order::findOrFail($id);
+        $order->status = $request->status;
+        $order->save();
+
+        toast('Status order berhasil diperbarui', 'success');
+        return redirect()->route('backend.orders.show', $id);
+    }
+
+    public function update(Request $request, $id)
     {
         $request->validate([
             'status' => 'required|in:pending,success,cancel',
